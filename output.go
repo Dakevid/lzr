@@ -113,6 +113,7 @@ func ( f *output_file ) Record( packet *packet_metadata, handshakes []string ) {
 		panic(err)
 		log.Fatal(err)
 	}
+	f.F.Flush()
 	return
 }
 
