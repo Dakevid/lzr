@@ -73,7 +73,8 @@ func handleExpired( opts *options, packet * packet_metadata, ipMeta * pState,
 		}
 
 		packet.updatePacketFlow()
-		ipMeta.incHandshake( packet )
+		ipMeta.setHandshakeNum(packet, handshakeNum+1)
+
 		SendSyn( packet, ipMeta, timeoutQueue )
 
 		//lets also filter for HyperACKtive hosts

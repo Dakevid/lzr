@@ -84,6 +84,23 @@ func (ipMeta * pState) incHandshake( p * packet_metadata ) bool {
 	return ok
 }
 
+func (ipMeta *pState) setHandshakeNum(p *packet_metadata, h int) bool {
+	pKey := constructKey(p)
+	ps, ok := ipMeta.Get(pKey)
+	if ok {
+		ps.HandshakeNum = h
+		ipMeta.Insert(pKey, ps)
+	} else {
+		ipMeta.update(p)
+		ps, ok = ipMeta.Get(pKey)
+		if ok {
+			ps.HandshakeNum = h
+			ipMeta.Insert(pKey, ps)
+		}
+	}
+	return ok
+}
+
 func (ipMeta * pState) updateAck( p * packet_metadata ) bool {
 	pKey := constructKey(p)
 	ps, ok := ipMeta.Get(pKey)
